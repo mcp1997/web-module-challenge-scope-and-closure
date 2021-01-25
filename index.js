@@ -28,11 +28,16 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+    counter 1 has everything contained in a function, and the function is invoked by assigning it to a variable outside of the function (a closure)
+    counter 2 uses and refers back to a variable in the global scope to run the function
   
   2. Which of the two uses a closure? How can you tell?
-  
+    counter 1 uses a closure. Everything needed to run the function is nested inside the function, and only the variable defined as counter1 can access said function
+
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     counter 1 is generally good practice and should be used most of the time, so that you or your team of devs dont accidentally reassign or redefine variables in the global scope.
+     counter 2 might be better if multiple different functions need to use the variable count, and therefore it is more efficient to have count set in the global scope.
 */
 
 // counter1 code
