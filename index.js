@@ -67,8 +67,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.floor(Math.random() * 3);
 }
 
 
@@ -86,8 +86,18 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, numOfInnings){
+  let homeScore = 0;
+  let awayScore = 0;
+  let scoreObject = {
+    "Home": homeScore,
+    "Away": awayScore
+  }
+  for(let i = 0; i < numOfInnings; i++){
+    scoreObject.Home = scoreObject.Home + inning();
+    scoreObject.Away = scoreObject.Away + inning();
+  }
+  return scoreObject;  
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -95,9 +105,12 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
-}
+  function getInningScore(scoreCB){
+    return {
+      Home: scoreCB(),
+      Away: scoreCB()
+    }
+  }
 
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
@@ -141,10 +154,25 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+ function scoreboard(getInningScoreCB, inningCB, numOfInnings){
+  scoreArray = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  
+  for(let i = 0; i<numOfInnings; i++){
+    var currentScore = getInningScoreCB(inningCB);
+    homeScore = homeScore + currentScore.Home;
+    awayScore = awayScore + currentScore.Away;
+    scoreArray.push(`Inning ${i + 1}: Away ${currentScore.Away} - Home ${currentScore.Home}`);
+  }
+  
+  if(homeScore === awayScore){
+    scoreArray.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`);
+  } else {
+    scoreArray.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
+  }
+  return scoreArray;
 }
-
 
 
 
